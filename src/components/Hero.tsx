@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight, Zap, Shield, Sparkles } from "lucide-react";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 interface HeroProps {
   onCtaClick: () => void;
@@ -19,11 +20,8 @@ export default function Hero({ onCtaClick }: HeroProps) {
 
       <div className="max-w-4xl px-4 sm:px-6 relative z-10">
         {/* Main Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-          Scaling Ethereum{" "}
-          <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 bg-clip-text text-transparent drop-shadow-sm">
-            Together
-          </span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight font-display text-white mb-6 select-none leading-none">
+          Scaling Ethereum <AuroraText>Together</AuroraText>
         </h1>
 
         {/* Subtitle */}

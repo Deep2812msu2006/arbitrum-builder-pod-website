@@ -1,6 +1,7 @@
 import React from "react";
 import ComparisonCard from "@/components/ComparisonCard";
 import { Globe, RefreshCw, Key, Database, BookOpen } from "lucide-react";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 export default function Concepts() {
   const comparisons = [
@@ -95,8 +96,8 @@ export default function Concepts() {
             <BookOpen className="h-3.5 w-3.5" />
             <span>Fundamentals</span>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Core Web3 Concepts
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight font-display text-white select-none leading-none mb-4">
+            Core <AuroraText>Web3 Concepts</AuroraText>
           </h1>
           <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
             Understanding these fundamental comparisons is key to grasping the power of decentralized technologies.

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Block from "@/components/Block";
 import { calculateHash } from "@/lib/hash";
 import { Link, AlertTriangle, CheckCircle, ShieldAlert, Cpu, Settings } from "lucide-react";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 interface BlockState {
   data: string;
@@ -217,8 +218,8 @@ export default function BlockSimulator() {
             <Link className="h-3.5 w-3.5" />
             <span>Interactive Learning</span>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Blockchain Immutability Simulator
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight font-display text-white select-none leading-none mb-4">
+            Blockchain <AuroraText>Immutability Simulator</AuroraText>
           </h1>
           <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
             Interact with blocks to see how SHA-256 links data together. Altering any block's content breaks the cryptographic link across all subsequent blocks.

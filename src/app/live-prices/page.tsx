@@ -5,6 +5,8 @@ import { fetchCryptoPrices } from "@/lib/api";
 import { CryptoCoin } from "@/types/crypto";
 import CryptoCard from "@/components/CryptoCard";
 import { RefreshCw, AlertCircle, Clock, Loader2 } from "lucide-react";
+import { AuroraText } from "@/components/magicui/aurora-text";
+import { DonutChart } from "@/components/DonutChart";
 
 export default function LivePrices() {
   const [coins, setCoins] = useState<CryptoCoin[]>([]);
@@ -38,11 +40,15 @@ export default function LivePrices() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-              Live Crypto Prices
+          <div className="flex flex-col">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-950/15 px-3 py-1 text-[11px] font-bold text-cyan-400 mb-3 tracking-widest uppercase select-none w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+              Live Market Feed
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight font-display text-white select-none leading-none">
+              Live <AuroraText>Crypto Prices</AuroraText>
             </h1>
-            <p className="mt-2 text-slate-400">
+            <p className="mt-3 text-slate-400 text-sm sm:text-base max-w-xl leading-relaxed">
               Real-time USD valuation and 24-hour indicators for core decentralized network assets.
             </p>
           </div>
@@ -101,6 +107,28 @@ export default function LivePrices() {
                 <span>Syncing...</span>
               </div>
             )}
+            
+            {/* Charts Section */}
+            <div className="flex justify-center mb-12">
+              <div className="uiverse-card w-full max-w-3xl">
+                <div className="uiverse-card-inner flex flex-col items-center justify-center p-8">
+                  <h3 className="text-xs font-bold text-slate-500 mb-6 uppercase tracking-widest select-none">
+                    Asset Price Share
+                  </h3>
+                  <DonutChart
+                    data={coins}
+                    category="name"
+                    value="price"
+                    valueFormatter={(val) =>
+                      `$${Intl.NumberFormat("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(val)}`
+                    }
+                  />
+                </div>
+              </div>
+            </div>
             
             {/* Grid of Coins */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

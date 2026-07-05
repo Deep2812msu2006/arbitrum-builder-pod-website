@@ -1808,3 +1808,32 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-2000px);
   }
 }
+
+/* Magic UI Aurora Text Animation & Utilities */
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(-1.5deg) scale(0.97);
+  }
+  25% {
+    background-position: 50% 100%;
+    transform: rotate(1.5deg) scale(1.03);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(-1deg) scale(0.98);
+  }
+  75% {
+    background-position: 50% 0%;
+    transform: rotate(1deg) scale(1.02);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(-1.5deg) scale(0.97);
+  }
+}
+
+.animate-aurora {
+  animation: aurora 8s ease-in-out infinite alternate;
+  background-size: 200% auto;
+}
