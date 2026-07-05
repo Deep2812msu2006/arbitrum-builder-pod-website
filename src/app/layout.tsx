@@ -41,21 +41,19 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-slate-950 font-sans text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
         <LoadingScreen />
-        {/* Enhanced attractive Web3 background */}
-        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-slate-950">
-          {/* Technic Grid */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-[0.85] z-0" />
-          
-          {/* Animated Aurora Glows */}
-          <div className="absolute -top-[20%] -left-[20%] h-[80%] w-[80%] rounded-full aurora-glow-1 blur-[120px] z-1" />
-          <div className="absolute top-[30%] right-[-10%] h-[70%] w-[70%] rounded-full aurora-glow-2 blur-[120px] z-1" />
-          <div className="absolute bottom-[-10%] left-[10%] h-[60%] w-[60%] rounded-full aurora-glow-3 blur-[120px] z-1" />
+        {/* Cosmic Starfield and Aurora Nebula Background */}
+        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-cosmic-radial">
+          <div id="stars" />
+          <div id="stars2" />
+          <div id="stars3" />
 
-          {/* Floating cyber particles */}
-          <div className="floating-particle w-12 h-12" style={{ left: "15%", animationDelay: "0s", animationDuration: "18s" }} />
-          <div className="floating-particle w-16 h-16" style={{ left: "45%", animationDelay: "3s", animationDuration: "25s" }} />
-          <div className="floating-particle w-8 h-8" style={{ left: "75%", animationDelay: "7s", animationDuration: "15s" }} />
-          <div className="floating-particle w-14 h-14" style={{ left: "90%", animationDelay: "11s", animationDuration: "22s" }} />
+          {/* Technic Grid */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-30 z-0" />
+          
+          {/* Animated Nebula Glows */}
+          <div className="absolute -top-[20%] -left-[20%] h-[80%] w-[80%] rounded-full aurora-glow-1 blur-[120px] z-1 opacity-70" />
+          <div className="absolute top-[30%] right-[-10%] h-[70%] w-[70%] rounded-full aurora-glow-2 blur-[120px] z-1 opacity-70" />
+          <div className="absolute bottom-[-10%] left-[10%] h-[60%] w-[60%] rounded-full aurora-glow-3 blur-[120px] z-1 opacity-70" />
         </div>
 
         <div className="relative z-10 flex flex-col min-h-screen">

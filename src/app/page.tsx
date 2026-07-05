@@ -365,7 +365,7 @@ export default function Home() {
       </section>
 
       {/* Core Feature Section */}
-      <section ref={detailRef} className="py-16 md:py-24 border-t border-slate-900 bg-slate-950">
+      <section ref={detailRef} className="py-16 md:py-24 border-t border-slate-900/50 bg-slate-950/60 relative z-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">

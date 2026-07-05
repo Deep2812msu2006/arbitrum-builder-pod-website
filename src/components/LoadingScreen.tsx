@@ -10,7 +10,7 @@ export default function LoadingScreen() {
   const [loadingText, setLoadingText] = useState("Initializing Web3 node...");
   const [isMounted, setIsMounted] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  
+
   // Staging screens: Portal Screen first, then Loading Screen
   const [showPortal, setShowPortal] = useState(true);
   const [showLoader, setShowLoader] = useState(false);
@@ -60,7 +60,7 @@ export default function LoadingScreen() {
           clearInterval(progressInterval);
           return 100;
         }
-        
+
         // Random incremental steps for natural loading feel
         const increment = Math.floor(Math.random() * 5) + 3;
         return Math.min(prev + increment, 100);
@@ -93,16 +93,16 @@ export default function LoadingScreen() {
       setLoadingText("Rebuilding blockchain state variables...");
     } else if (progress === 100) {
       setLoadingText("Decentralization initialized! Block sealed.");
-      
+
       const fadeTimeout = setTimeout(() => {
         setFadeOut(true);
-        
+
         const unmountTimeout = setTimeout(() => {
           setIsMounted(false);
           sessionStorage.setItem("web3_academy_loaded", "true");
           document.body.style.overflow = "";
         }, 600);
-        
+
         return () => clearTimeout(unmountTimeout);
       }, 850);
 
@@ -136,11 +136,11 @@ export default function LoadingScreen() {
           <div className="floating-particle w-2.5 h-2.5" style={{ left: "85%", animationDelay: "8s", animationDuration: "22s" }} />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center max-w-xl px-6">
-          {/* Custom logo symbol from the second photo */}
-          <div className="mb-6 animate-pulse" style={{ animationDuration: "4s" }}>
+        <div className="relative z-10 flex flex-col items-center max-w-4xl px-6">
+          {/* Custom logo symbol from the second photo - slowly presenting */}
+          <div className="mb-10 animate-present-logo">
             <svg
-              className="h-24 w-24 drop-shadow-[0_0_35px_rgba(255,106,0,0.55)]"
+              className="h-36 w-36 drop-shadow-[0_0_45px_rgba(255,106,0,0.65)]"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +178,7 @@ export default function LoadingScreen() {
                 fill="url(#portal-logo-grad-2)"
                 opacity="0.9"
               />
-              
+
               {/* Left Bottom Block (L1 Base) */}
               <path
                 d="M25,40 L47,51 L47,76 L25,65 Z"
@@ -204,19 +204,46 @@ export default function LoadingScreen() {
             </svg>
           </div>
 
-          {/* Title styled matching first photo */}
-          <h1 className="text-4xl sm:text-5xl md:text-6.5xl font-black uppercase text-[#ff6a00] drop-shadow-[0_0_20px_rgba(255,106,0,0.6)] tracking-wider mb-10 font-display leading-none select-none">
+          {/* Title styled matching first photo - slowly presenting after logo */}
+          <h1 className="text-5xl sm:text-7xl md:text-8.5xl font-black uppercase bg-gradient-to-r from-[#ff9f00] via-[#ff6a00] to-[#ff3c00] bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(255,106,0,0.65)] tracking-widest mb-16 font-display leading-none select-none animate-present-title">
             Web3Academy
           </h1>
 
-          {/* Launch Academy Button matching first photo layout */}
-          <button
-            onClick={handleExplore}
-            className="group relative flex items-center justify-center space-x-2 rounded-full border border-orange-600/50 bg-transparent px-8 py-3.5 text-sm sm:text-base font-semibold text-orange-500 hover:text-orange-400 hover:border-orange-500 hover:bg-orange-600/5 transition-all duration-300 shadow-[0_0_15px_rgba(255,106,0,0.05)] hover:shadow-[0_0_25px_rgba(255,106,0,0.25)] cursor-pointer"
-          >
-            <span>Launch Academy</span>
-            <span className="font-mono text-xs transition-transform duration-300 group-hover:translate-x-1">&gt;</span>
-          </button>
+          {/* Launch Academy Button matching Uiverse.io by MuhammadHasann - presenting last */}
+          <div className="animate-present-button">
+            <button
+              onClick={handleExplore}
+              className="launch-academy-btn"
+            >
+              <div className="dots_border"></div>
+
+              {/* Sparkle SVG */}
+              <svg
+                className="sparkle"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  className="path"
+                  d="M12 2L12.5 8L18 8.5L12.5 9L12 15L11.5 9L6 8.5L11.5 8L12 2Z"
+                  fill="currentColor"
+                />
+                <path
+                  className="path"
+                  d="M4 14L4.2 16.5L6.7 16.7L4.2 16.9L4 19.4L3.8 16.9L1.3 16.7L3.8 16.5L4 14Z"
+                  fill="currentColor"
+                />
+                <path
+                  className="path"
+                  d="M19 14L19.2 16.5L21.7 16.7L19.2 16.9L19 19.4L18.8 16.9L16.3 16.7L18.8 16.5L19 14Z"
+                  fill="currentColor"
+                />
+              </svg>
+
+              <span className="text_button">Launch Academy</span>
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -239,9 +266,8 @@ export default function LoadingScreen() {
   // Render preloader screen (Phase 2)
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-950 transition-all duration-500 ease-in-out ${
-        fadeOut ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
-      }`}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-950 transition-all duration-500 ease-in-out ${fadeOut ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"
+        }`}
     >
       {/* Background ambient light */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -292,9 +318,8 @@ export default function LoadingScreen() {
             return (
               <React.Fragment key={node.label}>
                 <div
-                  className={`sync-node ${isCompleted ? "completed" : ""} ${
-                    isActiveNode ? "active" : ""
-                  }`}
+                  className={`sync-node ${isCompleted ? "completed" : ""} ${isActiveNode ? "active" : ""
+                    }`}
                   title={node.label}
                 >
                   {isActiveNode && <div className="node-ripple" />}
