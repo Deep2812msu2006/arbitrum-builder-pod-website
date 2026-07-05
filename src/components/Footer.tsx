@@ -22,7 +22,7 @@ export default function Footer() {
               Developed by <strong className="text-slate-200 font-medium">Deep Jaiswal</strong>
             </span>
             <a
-              href="https://github.com/deepjaiswal"
+              href="https://github.com/Deep2812msu2006"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-1.5 text-cyan-400 hover:text-cyan-300 transition-colors duration-150 group"

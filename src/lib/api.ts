@@ -1,62 +1,59 @@
-import { CoinGeckoResponse, CryptoCoin } from "@/types/crypto";
-
-const COINGECKO_API_URL =
-  "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,arbitrum,solana&vs_currencies=usd&include_24hr_change=true";
+import { CoinGeckoResponse, CryptoCoin, CoinGeckoSearchResult } from "@/types/crypto";
 
 /**
- * Fetches current prices for BTC, ETH, ARB, and SOL.
- * Maps raw API output into structured CryptoCoin objects.
+ * Fetches current prices and metadata for a list of coin IDs.
  */
-export async function fetchCryptoPrices(): Promise<CryptoCoin[]> {
+export async function fetchCryptoPrices(ids: string[] = ["bitcoin", "ethereum", "arbitrum", "solana"]): Promise<CryptoCoin[]> {
+  if (ids.length === 0) return [];
+  
+  const COINGECKO_API_URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids.join(',')}`;
+
   try {
     const res = await fetch(COINGECKO_API_URL);
 
     if (!res.ok) {
       console.warn(`Failed to fetch prices: ${res.statusText}. Using fallback data.`);
-      return getFallbackData();
+      return getFallbackData().filter(c => ids.includes(c.id));
     }
 
-    const data: CoinGeckoResponse = await res.json();
+    const data: any[] = await res.json();
 
-    const coins: CryptoCoin[] = [
-      {
-        id: "bitcoin",
-        name: "Bitcoin",
-        symbol: "BTC",
-        price: data.bitcoin?.usd || 0,
-        change24h: data.bitcoin?.usd_24h_change || 0,
-        logo: "BTC",
-      },
-      {
-        id: "ethereum",
-        name: "Ethereum",
-        symbol: "ETH",
-        price: data.ethereum?.usd || 0,
-        change24h: data.ethereum?.usd_24h_change || 0,
-        logo: "ETH",
-      },
-      {
-        id: "arbitrum",
-        name: "Arbitrum",
-        symbol: "ARB",
-        price: data.arbitrum?.usd || 0,
-        change24h: data.arbitrum?.usd_24h_change || 0,
-        logo: "ARB",
-      },
-      {
-        id: "solana",
-        name: "Solana",
-        symbol: "SOL",
-        price: data.solana?.usd || 0,
-        change24h: data.solana?.usd_24h_change || 0,
-        logo: "SOL",
-      },
-    ];
+    const coins: CryptoCoin[] = data.map((coin: any) => ({
+      id: coin.id,
+      name: coin.name,
+      symbol: coin.symbol.toUpperCase(),
+      price: coin.current_price || 0,
+      change24h: coin.price_change_percentage_24h || 0,
+      logo: coin.symbol.toUpperCase(),
+      imageUrl: coin.image,
+    }));
 
     return coins;
   } catch (error) {
     console.warn("Error fetching crypto prices, using fallback data:", error);
-    return getFallbackData();
+    return getFallbackData().filter(c => ids.includes(c.id));
+  }
+}
+
+/**
+ * Searches CoinGecko for a specific cryptocurrency.
+ */
+export async function searchCrypto(query: string): Promise<CoinGeckoSearchResult[]> {
+  if (!query || query.length < 2) return [];
+
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(query)}`);
+    
+    if (!res.ok) {
+      console.warn(`Failed to search crypto: ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    return data.coins || [];
+  } catch (error) {
+    console.error("Error searching crypto:", error);
+    return [];
   }
 }
 
@@ -95,5 +92,14 @@ function getFallbackData(): CryptoCoin[] {
       change24h: 8.45,
       logo: "SOL",
     },
+    {
+      id: "matic-network",
+      name: "Polygon",
+      symbol: "MATIC",
+      price: 0.72,
+      change24h: 1.2,
+      logo: "MATIC",
+      imageUrl: "https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png",
+    }
   ];
 }

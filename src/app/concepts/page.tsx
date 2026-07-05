@@ -1,6 +1,6 @@
 import React from "react";
 import ComparisonCard from "@/components/ComparisonCard";
-import { Globe, RefreshCw, Key, Database, BookOpen } from "lucide-react";
+import { Globe, Bitcoin, Key, Database, BookOpen } from "lucide-react";
 import { AuroraText } from "@/components/magicui/aurora-text";
 
 export default function Concepts() {
@@ -43,7 +43,7 @@ export default function Concepts() {
       ],
       explanation:
         "Bitcoin serves as a highly secure, decentralized store of value, while Ethereum acts as a flexible, programmable framework that hosts decentralized finance, NFTs, and autonomous organizations.",
-      icon: <RefreshCw className="h-5 w-5" />,
+      icon: <Bitcoin className="h-5 w-5" />,
     },
     {
       title: "Public Key vs Private Key",

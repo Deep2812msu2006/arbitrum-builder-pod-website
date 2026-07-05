@@ -17,4 +17,13 @@ export interface CryptoCoin {
   price: number;
   change24h: number;
   logo: string;
+  imageUrl?: string;
+}
+
+export interface CoinGeckoSearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  large: string;
 }

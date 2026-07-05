@@ -1,16 +1,26 @@
 import React from "react";
 import { CryptoCoin } from "@/types/crypto";
 import StatusBadge from "./StatusBadge";
+import { X } from "lucide-react";
 
 interface CryptoCardProps {
   coin: CryptoCoin;
+  onDelete?: (id: string) => void;
 }
 
-export default function CryptoCard({ coin }: CryptoCardProps) {
+export default function CryptoCard({ coin, onDelete }: CryptoCardProps) {
   const isPositive = coin.change24h >= 0;
 
   // Custom premium SVG tokens for logos
   const renderLogo = () => {
+    if (coin.imageUrl) {
+      return (
+        <div className="h-10 w-10 overflow-hidden rounded-full border border-slate-800 bg-slate-900 flex items-center justify-center p-0.5">
+          <img src={coin.imageUrl} alt={coin.name} className="h-full w-full object-contain rounded-full" />
+        </div>
+      );
+    }
+
     switch (coin.symbol) {
       case "BTC":
         return (
@@ -73,7 +83,7 @@ export default function CryptoCard({ coin }: CryptoCardProps) {
         );
       default:
         return (
-          <div className="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-400">
+          <div className="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-slate-400 text-xs">
             {coin.symbol}
           </div>
         );
@@ -85,13 +95,24 @@ export default function CryptoCard({ coin }: CryptoCardProps) {
       {/* Decorative hover light */}
       <div className="absolute -inset-px bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col h-full">
+      {/* Delete button (shows on hover) */}
+      {onDelete && (
+        <button
+          onClick={() => onDelete(coin.id)}
+          className="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-slate-500 opacity-0 group-hover:opacity-100 hover:text-rose-400 hover:border-rose-500/30 transition-all duration-200 shadow-md"
+          title="Remove crypto"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      )}
+
+      <div className="relative z-10 flex flex-col h-full mt-1">
         {/* Header: Logo & Info */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             {renderLogo()}
-            <div>
-              <h3 className="font-bold text-slate-100">{coin.name}</h3>
+            <div className="pr-6">
+              <h3 className="font-bold text-slate-100 truncate max-w-[120px]">{coin.name}</h3>
               <span className="text-xs font-semibold text-slate-500 uppercase">{coin.symbol}</span>
             </div>
           </div>
